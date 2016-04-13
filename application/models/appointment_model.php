@@ -24,6 +24,13 @@ class Appointment_model extends CI_Model
 			return FALSE;
 		
 	}
+	function get_app_id($data){
+		 $this->db->where('d_id',$data['d_id']);
+		 $this->db->where('Name',$data['Name']);
+		 $this->db->where('DOB',$data['DOB']);
+    $query = $this->db->get('appointment');
+    return $query->result_array();
+	}
 
 
 	

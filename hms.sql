@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2016 at 08:31 PM
+-- Generation Time: Apr 12, 2016 at 04:15 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -42,13 +42,27 @@ CREATE TABLE IF NOT EXISTS `appointment` (
 `app_id` int(11) NOT NULL,
   `d_id` int(11) DEFAULT NULL,
   `Name` varchar(50) DEFAULT NULL,
-  `Sex` varchar(1) DEFAULT NULL,
+  `Sex` int(1) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `Address` varchar(50) DEFAULT NULL,
   `PhNo` int(11) DEFAULT NULL,
   `D_O_Appointment` date DEFAULT NULL,
   `D_O_Request` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`app_id`, `d_id`, `Name`, `Sex`, `DOB`, `Address`, `PhNo`, `D_O_Appointment`, `D_O_Request`) VALUES
+(1, 0, 'milind rohit', NULL, NULL, 'Room No C-328, Amber Hostel, Indian School of Mine', 2147483647, '2005-05-15', '0000-00-00 00:00:00'),
+(2, 11100252, 'milind rohit', NULL, '2012-02-04', 'Room No C-328, Amber Hostel, Indian School of Mine', 2147483647, '2000-03-15', '0000-00-00 00:00:00'),
+(3, 11100252, 'milind', NULL, '2013-03-05', 'asdasd masndaksd', 877889, '2017-02-03', '0000-00-00 00:00:00'),
+(4, 11100252, 'milind rohit', NULL, '2008-07-09', 'Room No C-328, Amber Hostel, Indian School of Mine', 2147483647, '2016-04-11', '0000-00-00 00:00:00'),
+(5, 11100252, 'rohit', NULL, '2013-01-05', 'lkjn nkn987 jnkj', 2147483647, '2016-02-16', '0000-00-00 00:00:00'),
+(6, 11100252, 'rohit', NULL, '2013-01-05', 'lkjn nkn987 jnkj', 2147483647, '2016-02-16', '0000-00-00 00:00:00'),
+(7, 11100252, 'fuck', 1, '2013-01-02', 'ln;oijn  jnjkcas', 987987, '2017-01-18', '0000-00-00 00:00:00'),
+(8, 11100252, 'milind rohit', 0, '2012-05-08', 'Room No C-328, Amber Hostel, Indian School of Mine', 2147483647, '2017-04-13', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -114,6 +128,19 @@ INSERT INTO `casualty` (`p_id`, `D_O_Admit`, `D_O_Expiry`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ci_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctor`
 --
 
@@ -129,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 --
 
 INSERT INTO `doctor` (`e_id`, `Dept`, `Designation`, `password`) VALUES
-(11100252, 'Medicine', 'Professor', ''),
+(11100252, 'Medicine', 'Professor', 'okay123'),
 (11100253, 'Medicine', 'Professor', ''),
 (11100254, 'ENT', 'Assistant Professor', ''),
 (11100255, 'Pediatrics', 'Professor', ''),
@@ -165,9 +192,16 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `DOB` date NOT NULL,
   `sex` char(5) NOT NULL,
   `contact_no` int(10) NOT NULL,
-  `quailfication` text,
+  `qualification` text,
   `experience` int(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11100253 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`e_id`, `name`, `DOB`, `sex`, `contact_no`, `qualification`, `experience`) VALUES
+(11100252, 'Milind', '0000-00-00', 'Male', 0, 'MD neurology', 100);
 
 -- --------------------------------------------------------
 
@@ -347,12 +381,19 @@ CREATE TABLE IF NOT EXISTS `receptionist` (
 
 CREATE TABLE IF NOT EXISTS `timetable` (
   `d_id` int(11) NOT NULL,
-  `Mon` int(11) NOT NULL,
-  `Tue` int(11) NOT NULL,
-  `Wed` int(11) NOT NULL,
-  `Thu` int(11) NOT NULL,
-  `Fri` int(11) NOT NULL
+  `Mon` varchar(50) NOT NULL,
+  `Tue` varchar(50) NOT NULL,
+  `Wed` varchar(50) NOT NULL,
+  `Thu` varchar(50) NOT NULL,
+  `Fri` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `timetable`
+--
+
+INSERT INTO `timetable` (`d_id`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`) VALUES
+(11100252, 'Mon :- 9:00 AM - 1:00 PM', '', '', 'Thu :- 11:30 AM - 2:30 PM', '');
 
 -- --------------------------------------------------------
 
@@ -400,6 +441,12 @@ ALTER TABLE `casualty`
  ADD PRIMARY KEY (`p_id`);
 
 --
+-- Indexes for table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+ ADD PRIMARY KEY (`id`), ADD KEY `ci_sessions_timestamp` (`timestamp`);
+
+--
 -- Indexes for table `doctor`
 --
 ALTER TABLE `doctor`
@@ -442,6 +489,12 @@ ALTER TABLE `receptionist`
  ADD PRIMARY KEY (`e_id`);
 
 --
+-- Indexes for table `timetable`
+--
+ALTER TABLE `timetable`
+ ADD PRIMARY KEY (`d_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -449,12 +502,12 @@ ALTER TABLE `receptionist`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-MODIFY `app_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `app_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-MODIFY `e_id` int(10) NOT NULL AUTO_INCREMENT;
+MODIFY `e_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11100253;
 --
 -- AUTO_INCREMENT for table `medicine`
 --

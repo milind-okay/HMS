@@ -11,6 +11,7 @@ class Login extends CI_Controller {
                  $this->load->helper(array('form', 'url','array'));
                 $this->load->helper('date');
                 $this->load->library('form_validation');
+                $this->load->library('session');
                 
         }
         public function index(){
@@ -36,14 +37,28 @@ class Login extends CI_Controller {
                      $id = $this->input->post('ID');
                      if($type == 1){
 
-                if(($this->user_model->getDoctorById($id,$data))==TRUE){       
-                        $this->load->view('success_appointment');
+                if(($this->user_model->getDoctorById($id,$data))==TRUE){
+                        $login_data = array(
+                          'id' => $id,
+                         'ip_address'=> $this->input->ip_address(),
+                         'data' => 'okay'
+                          );  
+                          $this->user_model->create_session($login_data);
+                          $_SESSION['login_id'] = $id;
+                          redirect('');     
+                        //$this->load->view('success_appointment');
                       }else{
                         
                         $this->load->view('login',$error_m);
                       }
                 }else if($type == 2){
-                 if(($this->user_model->getPatientById($id,$data))==TRUE){       
+                 if(($this->user_model->getPatientById($id,$data))==TRUE){
+                 $login_data = array(
+                          'id' => $id,
+                         'ip_address'=> $this->input->ip_address(),
+                         'data' => 'okay'
+                          );  
+                          $this->user_model->create_session($login_data);       
                         $this->load->view('success_appointment');
                       }else{
                         
@@ -51,7 +66,13 @@ class Login extends CI_Controller {
                       }
 
               }else{
-                 if(($this->user_model->getAdminById($id,$data))==TRUE){       
+                 if(($this->user_model->getAdminById($id,$data))==TRUE){  
+                 $login_data = array(
+                          'id' => $id,
+                         'ip_address'=> $this->input->ip_address(),
+                         'data' => 'okay'
+                          );  
+                          $this->user_model->create_session($login_data);     
                         $this->load->view('success_appointment');
                       }else{
                 

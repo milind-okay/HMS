@@ -14,8 +14,12 @@ class Home extends CI_Controller {
                 
         }
         public function index(){
-          // $data['doctor'] = $this->doctor_model->get_doctors(); 
-            $this->load->view('home.php');
+          // $data['doctor'] = $this->doctor_model->get_doctors();
+            $data = array(
+                'title' => 'Welcome to D2 Hospital');
+            $this->load->view('header',$data); 
+            $this->load->view('home.php',$data);
+            $this->load->view('footer',$data);
         }
         
 }

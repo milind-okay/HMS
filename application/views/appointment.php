@@ -40,7 +40,7 @@ echo '<p>Sex* : <select id="Sex" name="Sex">
    <select name="aday"><option value="0">Day:</option>'.generate_options(1,31).'</select>
    <select name="ayear"><option value="0">Year:</option>'.generate_options(2017,2016).'</select>
   </p>';
-  echo form_submit('submit','Save');
+  echo form_submit('submit','Submit');
   echo form_close();
 
                                 ?>

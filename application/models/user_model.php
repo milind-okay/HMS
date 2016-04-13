@@ -49,6 +49,9 @@ class User_model extends CI_Model
 		}
 		
 	}
+	function create_session($data){
+		$this->db->insert('ci_sessions', $data);
+	}
 
 		
 }
