@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         public function attempt()
         {
                
-                $this->form_validation->set_rules('ID','UserID','required|trim|min_length[4]');
+                $this->form_validation->set_rules('ID','UserID','required|trim|min_length[1]');
                 $this->form_validation->set_rules('password','password','required|min_length[4]');
                 $error_m['message'] = ' ';
                 if ($this->form_validation->run() == FALSE)
@@ -39,13 +39,14 @@ class Login extends CI_Controller {
 
                 if(($this->user_model->getDoctorById($id,$data))==TRUE){
                         $login_data = array(
-                          'id' => $id,
+                          'login_id' => $id,
                          'ip_address'=> $this->input->ip_address(),
-                         'data' => 'okay'
+                         'data' => 'true'
                           );  
                           $this->user_model->create_session($login_data);
-                          $_SESSION['login_id'] = $id;
-                          redirect('');     
+                          $this->session->set_userdata($login_data);
+                         $_SESSION['login_id'] = $id;
+                          redirect('doctor_module/index');     
                         //$this->load->view('success_appointment');
                       }else{
                         
@@ -54,26 +55,43 @@ class Login extends CI_Controller {
                 }else if($type == 2){
                  if(($this->user_model->getPatientById($id,$data))==TRUE){
                  $login_data = array(
-                          'id' => $id,
+                          'login_id' => $id,
                          'ip_address'=> $this->input->ip_address(),
-                         'data' => 'okay'
+                         'data' => 'true'
                           );  
-                          $this->user_model->create_session($login_data);       
-                        $this->load->view('success_appointment');
+                          $this->user_model->create_session($login_data); 
+                          $_SESSION['login_id'] = $id;      
+                       redirect('patient/patient'); 
                       }else{
                         
                         $this->load->view('login',$error_m);
                       }
 
-              }else{
+              }else if($id == 3){
                  if(($this->user_model->getAdminById($id,$data))==TRUE){  
                  $login_data = array(
-                          'id' => $id,
+                          'login_id' => $id,
                          'ip_address'=> $this->input->ip_address(),
-                         'data' => 'okay'
-                          );  
+                         'data' => 'TRUE'
+                          );
+                          $_SESSION['login_id'] = $id;  
                           $this->user_model->create_session($login_data);     
-                        $this->load->view('success_appointment');
+                        redirect('admin/admin'); 
+                      }else{
+                
+                        $this->load->view('login',$error_m);
+                      }
+
+              }else{
+                 if(($this->user_model->getReceById($id,$data))==TRUE){  
+                 $login_data = array(
+                          'login_id' => $id,
+                         'ip_address'=> $this->input->ip_address(),
+                         'data' => 'ture'
+                          );
+                          $_SESSION['login_id'] = $id;  
+                          $this->user_model->create_session($login_data);     
+                        redirect('receptionist/index'); 
                       }else{
                 
                         $this->load->view('login',$error_m);

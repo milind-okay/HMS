@@ -16,9 +16,10 @@ echo '<p>login as:* : <select id="type" name="type">
                                 <option value = 1>Doctor</option>
                                 <option value = 2>patient</option>
                                 <option value = 3>Admin</option>
+                                <option value = 4>Receptionist</option>
                                 </select></p>';
 echo '<p>UserID* : '.form_input('ID',set_value('ID')).'</p>';
-echo '<p>Password* : '.form_input('password').'</p>';
+echo '<p>Password* : '.form_input('password',set_value('password','Password')).'</p>';
 
  
   

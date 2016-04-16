@@ -21,7 +21,7 @@ class Get_appointment extends CI_Controller {
         public function take()
         {
                 $_POST['dob'] = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['day'];
-                $_POST['D_O_Appointment'] = $_POST['ayear'].'-'.$_POST['amonth'].'-'.$_POST['aday'];
+              
                 $this->form_validation->set_rules('Name','Name','required|trim|min_length[4]');
                    $this->form_validation->set_rules('PhNo','Mobile NO.','required|trim|min_length[10]');
                 $this->form_validation->set_rules('dob','DOB','required|callback_date_check');
@@ -30,7 +30,7 @@ class Get_appointment extends CI_Controller {
                 $this->form_validation->set_rules('Sex','SEX','required');
                 if ($this->form_validation->run() == FALSE)
                 {
-                        $this->load->view('appointment',$data);
+                        $this->load->view('appointment');
                 }
                 else
                 {

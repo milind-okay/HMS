@@ -16,7 +16,7 @@ echo '<p>Sex* : <select id="Sex" name="Sex">
                                 <option value = null>select</option>
                                 <option value = 0>Male</option>
                                 <option value = 1>Female</option>
-                                <option value = 2>praween</option>
+                                <option value = 2>other</option>
                                 </select></p>';
  echo '<p>
    <label>DOB:</label>
@@ -34,12 +34,14 @@ echo '<p>Sex* : <select id="Sex" name="Sex">
         }
         
                               echo  '</select></p>';
- echo '<p>
-   <label>Date of Appointment:</label>
-   <select name="amonth"><option value="0">Month:</option>'.generate_options(1,12,'callback_month').'</select>
-   <select name="aday"><option value="0">Day:</option>'.generate_options(1,31).'</select>
-   <select name="ayear"><option value="0">Year:</option>'.generate_options(2017,2016).'</select>
-  </p>';
+ echo '<p>Day of Appointment* : <select id="D_O_Appointment" name="D_O_Appointment">
+                                <option value = null>select</option>
+                                <option value = "Mon">Mon</option>
+                                <option value = "Tue">Tue</option>
+                                <option value = "Wed">Wed</option>
+                                <option value = "Thu">Thu</option>
+                                <option value = "Fri">Fri</option>
+                                </select></p>';
   echo form_submit('submit','Submit');
   echo form_close();
 
